@@ -1,0 +1,17 @@
+[project]
+name = "mephi-sprint-23-61"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "yuliya-mv", email = "yuu.khoang@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+mephi-sprint-23-61 = "mephi_sprint_23_61:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
