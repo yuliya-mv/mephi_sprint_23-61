@@ -12,6 +12,7 @@ dependencies = []
 [project.scripts]
 mephi-sprint-23-61 = "mephi_sprint_23_61:main"
 
-[build-system]
-requires = ["uv_build>=0.12.15,<0.13.0"]
-build-backend = "uv_build"
+[dependency-groups]
+dev = [
+    "ruff",
+]
