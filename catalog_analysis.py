@@ -117,3 +117,66 @@ def count_long_movies(movies, threshold=120):
             count += 1
 
     return count
+
+
+def normalize_title(title: str) -> str:
+    #приводит строку к формату Title Case
+    words = title.split()
+    result = []
+
+    for word in words:
+        result.append(word[0].upper() + word[1:])
+
+    return " ".join(result)
+
+
+def make_slug(title):
+    #превращает нормализованное название в «слаг»
+
+    title = title.lower()
+    title = title.replace(" ", "-")
+
+    return title
+
+
+def format_report_line(movie: dict) -> str:
+    #возвращает единую строку с описанием фильма
+
+    title = normalize_title(movie["title"])
+    genres = sorted(movie["genres"])
+    genres = ", ".join(genres)
+    duration = duration_in_hours(movie["duration_min"])
+
+    return (
+        f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration}, жанры: {genres}'
+    )
+
+
+def titles_sorted_by_rating(movies):
+    # возвращает список названий фильмов, отсортированных по убыванию рейтинга
+    top_movies_title = []
+
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+
+    for movie in sorted_movies:
+        top_movies_title.append(movie["title"])
+
+    return top_movies_title
+
+
+def top_n_by_rating(movies, n=3):
+    #возвращает топ по рейтингу
+    top_movies_rating = []
+
+    sorted_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)    
+
+    for movie in sorted_movies[:n]:
+        top_movies_rating.append((movie["title"], movie["rating"]))
+
+    return top_movies_rating
+
+
+
+
+    
+
