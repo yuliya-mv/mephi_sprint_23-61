@@ -75,6 +75,8 @@ def rating_tier(rating):
     else:
         category = "слабо"
 
+    return category
+
 
 def decade_label(year):
     #возвращает категорию по году
@@ -145,10 +147,10 @@ def format_report_line(movie: dict) -> str:
     title = normalize_title(movie["title"])
     genres = sorted(movie["genres"])
     genres = ", ".join(genres)
-    duration = duration_in_hours(movie["duration_min"])
+    length = duration_in_hours(movie["duration_min"])
 
     return (
-        f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {duration}, жанры: {genres}'
+        f'"{title}" ({movie["year"]}) — {movie["rating"]}/10, {length}, жанры: {genres}'
     )
 
 
@@ -174,6 +176,46 @@ def top_n_by_rating(movies, n=3):
         top_movies_rating.append((movie["title"], movie["rating"]))
 
     return top_movies_rating
+
+
+def count_by_genre(movies):
+    #возвращает словарь {жанр: количество фильмов}
+
+    genre_counts = {}
+
+    for movie in movies:
+        for genre in movie["genres"]:
+            genre_counts[genre] = genre_counts.get(genre, 0) + 1
+
+    return genre_counts
+
+
+def actor_filmography(movies):
+    #возвращает словарь {актер: [список названий фильмов]}
+    filmography = {}
+
+    for movie in movies:
+        title = movie["title"]
+        actors = movie["actors"]
+
+        for actor in actors:
+            filmography[actor] = filmography.get(actor, [])
+            filmography[actor].append(title)
+
+    return filmography
+
+
+def above_average_ratings(movies):
+    #возвращает словарь {title: rating} только для фильмов с рейтингом выше среднего
+    average = average_rating(movies)
+
+    above_average_ratings = {
+        movie["title"]: movie["rating"]
+        for movie in movies
+        if movie["rating"] > average
+    }
+
+    return above_average_ratings
 
 
 
