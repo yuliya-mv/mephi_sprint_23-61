@@ -27,6 +27,7 @@ print("Hello from mephi-sprint-23-61!")
 
 
 def average_rating(movies):
+    #возвращает среднюю оценку по каталогу, округленную до одного знака
     total = 0
 
     for movie in movies:
@@ -38,6 +39,7 @@ def average_rating(movies):
 
 
 def catalog_age_stats(movies, current_year=2026):
+    #возвращает кортеж (самый старый фильм в годах, самый новый фильм в годах, среднее)
     ages = []
 
     for movie in movies:
@@ -53,6 +55,7 @@ def catalog_age_stats(movies, current_year=2026):
 
 
 def duration_in_hours(minutes):
+    #переводит минуты в формат "ч м"
     hours = minutes // 60
     minutes_rem = minutes % 60
 
@@ -60,6 +63,7 @@ def duration_in_hours(minutes):
 
 
 def rating_tier(rating):
+    #возвращает по оценке категорию
     rating = rating if rating >= 0 else 0
 
     if rating >= 9:
@@ -73,6 +77,7 @@ def rating_tier(rating):
 
 
 def decade_label(year):
+    #возвращает категорию по году
     match year:
         case _ if year > 2020:
             return "новые"
@@ -80,3 +85,35 @@ def decade_label(year):
             return "недавние"
         case _ if year < 2015:
             return "старые"
+
+
+def print_non_comedy_movies(movies):
+    #выводит названия всех не комедий
+    for movie in movies:
+        if "comedy" in movie["genres"]:
+            continue
+        print(movie["title"])
+
+
+def find_first_masterpiece(movies):
+    #возвращает первый по порядку в списке фильм с рейтингом выше 9.0
+    index = 0
+
+    while index < len(movies):
+        if movies[index]["rating"] > 9.0:
+            print(movies[index]["title"])
+            break
+        index += 1
+    else:
+        print("Шедевров не найдено")
+
+
+def count_long_movies(movies, threshold=120):
+    #считает количество фильмов длиннее threshold минут
+    count = 0
+
+    for movie in movies:
+        if movie["duration_min"] > threshold:
+            count += 1
+
+    return count
