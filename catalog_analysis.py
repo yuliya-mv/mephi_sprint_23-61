@@ -244,5 +244,19 @@ def genres_only_in_one(movies_a, movies_b):
     return genres_a - genres_b
 
 
-    
+def iter_high_rated(movies, min_rating=8.0):
+    #отдает фильмы с рейтингом не ниже min_rating
+    for movie in movies:
+        if movie["rating"] >= min_rating:
+            yield movie
 
+
+def total_duration_above_seven(movies):
+    #суммарная длительность всех фильмов с рейтингом выше 7
+    total_time = 0
+
+    for movie in movies:
+        if movie["rating"] > 7:
+            total_time = total_time + movie["duration_min"]
+            
+    return total_time
