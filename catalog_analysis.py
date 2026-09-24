@@ -2,7 +2,8 @@ import math
 
 movies = [
     {"title": "The Dune Chronicles", "year": 2021, "genres": {"sci-fi", "drama"},
-     "rating": 8.6, "duration_min": 155, "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
+     "rating": 8.6, "duration_min": 155, 
+     "actors": ["T. Chalamet", "R. Ferguson", "O. Isaac"]},
     {"title": "Kitchen Stories", "year": 2019, "genres": {"comedy", "drama"},
      "rating": 7.1, "duration_min": 98, "actors": ["A. Novak", "M. Ferguson"]},
     {"title": "silent hours", "year": 2016, "genres": {"thriller", "drama"},
@@ -217,7 +218,30 @@ def above_average_ratings(movies):
 
     return above_average_ratings
 
+def all_genres(movies):
+    #множество всех уникальных жанров каталога
+    genres = set()
 
+    for movie in movies:
+        genres.update(movie["genres"])
+
+    return genres
+
+
+def common_actors(movie1, movie2):
+    #множество актеров, снимавшихся в обоих фильмах
+    actors1 = set(movie1["actors"])
+    actors2 = set(movie2["actors"])
+
+    return actors1 & actors2
+
+
+def genres_only_in_one(movies_a, movies_b):
+    #жанры в movies_a, но не встречающиеся в movies_b
+    genres_a = all_genres(movies_a)
+    genres_b = all_genres(movies_b)
+
+    return genres_a - genres_b
 
 
     
