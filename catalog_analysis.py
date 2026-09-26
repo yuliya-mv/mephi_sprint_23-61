@@ -24,8 +24,6 @@ movies = [
      "rating": 7.3, "duration_min": 129, "actors": ["P. Diaz", "T. Chalamet"]},
 ]
 
-print("Hello from mephi-sprint-23-61!")
-
 
 def average_rating(movies):
     #возвращает среднюю оценку по каталогу, округленную до одного знака
@@ -260,3 +258,39 @@ def total_duration_above_seven(movies):
             total_time = total_time + movie["duration_min"]
             
     return total_time
+
+
+def build_report(movies):
+    average = average_rating(movies)
+    age_stats = catalog_age_stats(movies)
+
+    top_movies = sorted(movies, key=lambda movie: movie["rating"], reverse=True)
+    top_movies = top_movies[:3]
+
+    genre_counts = count_by_genre(movies)
+    sorted_genres = sorted(
+        genre_counts.items(),
+        key=lambda item: item[1],
+        reverse=True,
+    )
+
+    genres = sorted(all_genres(movies))
+
+    print("ОТЧЁТ ПО КАТАЛОГУ") #в задании ОТЧеТ, выглядит как опечатка 
+    print(f"Средний рейтинг: {average}")
+    print(f"Средний возраст фильмов: {age_stats[2]} лет", end="\n\n")
+    
+    print("Топ-3 фильма:")
+    for movie in top_movies:
+        print(f"  {format_report_line(movie)}")
+    print()
+
+    print("Фильмов по жанрам:")
+    for genre, count in sorted_genres:
+        print(f"  {genre} — {count}")
+    print()
+
+    print(f"Все жанры каталога: {', '.join(genres)}")
+
+if __name__ == "__main__":
+    build_report(movies)
