@@ -47,7 +47,6 @@ def catalog_age_stats(movies, current_year=2026):
 
     old = max(ages)
     new = min(ages)
-
     avg_age = sum(ages) / len(ages)
 
     return old, new, math.ceil(avg_age)
@@ -216,6 +215,7 @@ def above_average_ratings(movies):
 
     return above_average_ratings
 
+
 def all_genres(movies):
     #множество всех уникальных жанров каталога
     genres = set()
@@ -244,6 +244,7 @@ def genres_only_in_one(movies_a, movies_b):
 
 def iter_high_rated(movies, min_rating=8.0):
     #отдает фильмы с рейтингом не ниже min_rating
+    
     for movie in movies:
         if movie["rating"] >= min_rating:
             yield movie
